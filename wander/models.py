@@ -19,7 +19,10 @@ class Restaurants(Places):
 
 
 class Poster(Places):
-    date_event = models.DateField(auto_now=False, auto_now_add=False, )
+    date_event_start = models.DateField(auto_now=False, auto_now_add=False, )
+    date_event_end = models.DateField(auto_now=False, auto_now_add=False, )
+    name_event = models.CharField(max_length=30)
+
 
 
 class SelectCity(models.Model):
