@@ -8,6 +8,7 @@ urlpatterns = [
     path('rating', views.rating, name='rating'),
     path('restaurants', views.restaurants, name='restaurants'),
     path('settings', views.settings, name='settings'),
+    path('', views.posters, name='posters'),
 ]
 
 
