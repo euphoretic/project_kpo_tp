@@ -24,7 +24,6 @@ class Poster(Places):
     name_event = models.CharField(max_length=30)
 
 
-
 class SelectCity(models.Model):
     CITY_CHEBOKSARY = 'CHE', _('Cheboksary')
     CITY_GUS_KHRUSTALNY = 'GUS', _('Gus-khrustalny')
