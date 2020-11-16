@@ -1,23 +1,21 @@
 from django.utils import timezone
-import datetime
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 class SelectCity(models.Model):
-    CITY_CHEBOKSARY = 'CHE', _('Cheboksary')
-    CITY_GUS_KHRUSTALNY = 'GUS', _('Gus-khrustalny')
-    __all = (CITY_CHEBOKSARY,
-             CITY_GUS_KHRUSTALNY,
-             )
-    selected_city = models.CharField(max_length=3, choices=__all, default=CITY_CHEBOKSARY)
+    city_for_choice = (
+        ('CHE', 'Cheboksary'),
+        ('GUS', 'Gus-khrustalny'),
+    )
+    selected_city = models.CharField(max_length=3, choices=city_for_choice)
 
     def __str__(self):
         return str(self.selected_city)
 
 
-class Places(models.Model):
-    city = models.ForeignKey('SelectCity', on_delete=models.CASCADE, related_name='city')
+class Place(models.Model):
+    city = models.ForeignKey(SelectCity, on_delete=models.CASCADE, verbose_name='city')
     full_address = models.CharField(max_length=150)
     name_place = models.CharField(max_length=50)
     place_rating = models.FloatField(max_length=3)
@@ -26,24 +24,20 @@ class Places(models.Model):
     def __str__(self):
         return self.full_address+' '+self.city.__str__()+' '+self.name_place
 
-    def save(self, **kwargs):
-        if not self.pk:
-            print('Creating new Place!')
-        else:
-            print('Updating the existing one')
-
-        super(Places, self).save(**kwargs)
+    # def save(self, *args, **kwargs):
+    #     print('Creating new Place!')
+    #     super().save(*args, **kwargs)
 
 
-class Attractions(Places):
+class Attraction(Place):
     history = models.CharField(max_length=120)
 
 
-class Restaurants(Places):
+class Restaurant(Place):
     pass
 
 
-class PosterEvent(Places):
+class PosterEvent(Place):
     date_event_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     date_event_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
     name_event = models.CharField(max_length=30, default='add_name_event')
