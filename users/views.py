@@ -21,4 +21,7 @@ def register(request):
 
 
 def user_login(request):
+    if request.method == 'POST':
+        return render(request, 'users/user_login.html')
+        # form = LoginForm(data=)
     return render(request, 'users/user_login.html')
