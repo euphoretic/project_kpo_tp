@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # dop:
+    'crispy_forms',
     # custom:
     'wander.apps.WanderConfig',
     'users.apps.UsersConfig',
@@ -126,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'user:login'
+# LOGIN_URL = 'user:login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
