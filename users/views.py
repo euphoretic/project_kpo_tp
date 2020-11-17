@@ -20,8 +20,15 @@ def register(request):
             return redirect('')
 
 
-def user_login(request):
+def user_signin(request):
     if request.method == 'POST':
-        return render(request, 'users/user_login.html')
+        return render(request, 'users/user_signin.html')
         # form = LoginForm(data=)
-    return render(request, 'users/user_login.html')
+    return render(request, 'users/user_signin.html')
+
+# изменить по типу registration
+def user_signup(request):
+    if request.method == 'POST':
+        return render(request, 'users/user_signup.html')
+        # form = LoginForm(data=)
+    return render(request, 'users/user_signup.html')
