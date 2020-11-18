@@ -130,6 +130,6 @@ STATIC_URL = '/static/'
 
 # LOGIN_URL = 'user:login'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 

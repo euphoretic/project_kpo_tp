@@ -3,19 +3,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class SelectCity(models.Model):
-    city_for_choice = (
-        ('CHE', 'Cheboksary'),
-        ('GUS', 'Gus-khrustalny'),
-    )
-    selected_city = models.CharField(max_length=3, choices=city_for_choice)
-
-    def __str__(self):
-        return str(self.selected_city)
+class City(models.Model):
+    name = models.CharField(max_length=20)
 
 
 class Place(models.Model):
-    city = models.ForeignKey(SelectCity, on_delete=models.CASCADE, verbose_name='city')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
     full_address = models.CharField(max_length=150)
     name_place = models.CharField(max_length=50)
     place_rating = models.FloatField(max_length=3)
