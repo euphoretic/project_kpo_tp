@@ -10,27 +10,33 @@ class City(models.Model):
 class Place(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
     full_address = models.CharField(max_length=150)
-    name_place = models.CharField(max_length=50)
-    place_rating = models.FloatField(max_length=3)
+    name = models.CharField(max_length=50)
+    rating = models.FloatField(max_length=3)
     description = models.CharField(max_length=120)
 
     def __str__(self):
-        return self.full_address+' '+self.city.__str__()+' '+self.name_place
-
-    # def save(self, *args, **kwargs):
-    #     print('Creating new Place!')
-    #     super().save(*args, **kwargs)
+        return "%s: %s, %s" % (self.name, self.city.name,  self.full_address)
 
 
-class Attraction(Place):
+class Attraction(models.Model):
+    place = models.OneToOneField(Place, on_delete=models.CASCADE, primary_key=True, related_name='attraction place')
     history = models.CharField(max_length=120)
 
+    def __str__(self):
+        return "%s the attraction" % self.place.name
 
-class Restaurant(Place):
-    pass
+
+class Restaurant(models.Model):
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='restaurant place')
+    name_restaurant = models.CharField(max_length=50)
+    description_restaurant = models.CharField(max_length=120)
+
+    def __str__(self):
+        return "%s the restaurant" % self.name_restaurant
 
 
-class PosterEvent(Place):
+class PosterEvent(models.Model):
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='poster event place')
     date_event_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     date_event_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
     name_event = models.CharField(max_length=30, default='add_name_event')
