@@ -6,6 +6,14 @@ from django.views import generic
 from .models import Attraction, Place, PosterEvent, Restaurant, City
 
 
+class PosterEventListView(generic.ListView):
+    model = PosterEvent
+
+    def get_queryset(self):
+        """Возвращает 12 ближайших мероприятий"""
+        return PosterEvent.objects.order_by('-date_event')[:12]
+
+
 def favourites(request):
     return render(request, 'wander/favourites.html')
 
