@@ -6,6 +6,13 @@ from django.utils.translation import gettext_lazy as _
 class City(models.Model):
     name = models.CharField(max_length=20)
 
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new City!')
+        else:
+            print('Updating the existing one')
+        super(City, self).save(**kwargs)
+
     def __str__(self):
         return "%s" % self.name
 
@@ -17,6 +24,13 @@ class Place(models.Model):
     rating = models.FloatField(max_length=3)
     description = models.CharField(max_length=255)
 
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new Place!')
+        else:
+            print('Updating the existing one')
+        super(Place, self).save(**kwargs)
+
     def __str__(self):
         return "%s: %s, %s" % (self.name, self.city.__str__(),  self.full_address)
 
@@ -24,6 +38,13 @@ class Place(models.Model):
 class Attraction(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, )
     history = models.CharField(max_length=255)
+
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new Attraction!')
+        else:
+            print('Updating the existing one')
+        super(Attraction, self).save(**kwargs)
 
     def __str__(self):
         return "%s the attraction" % self.place.name
@@ -33,6 +54,13 @@ class Restaurant(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE,)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
+
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new Restaurant!')
+        else:
+            print('Updating the existing one')
+        super(Restaurant, self).save(**kwargs)
 
     def __str__(self):
         return "%s the restaurant" % self.name
