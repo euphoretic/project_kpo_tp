@@ -1,3 +1,5 @@
+import datetime
+
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -70,16 +72,30 @@ class PosterEvent(models.Model):
     class Meta:
         db_table = "poster_event"
 
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, )
+    place = models.ForeignKey(Place, on_delete=models.CASCADE)
     date_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     date_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
     name = models.CharField(max_length=30, default='add_name_event')
     ended = models.BooleanField(default=False)
 
-    def mark_ended(self, commit=True):
-        self.ended = True
-        if commit:
-            self.save()
+    def mark_ended(self, commit=False):
+        if commit or (self.was_ended()):
+            self.ended = True
+            # self.save()
+
+    def was_ended(self):
+        now = timezone.now()
+        return (self.date_end < now) or self.ended
+
+    def was_start(self):
+        now = timezone.now()
+        return (now < self.date_end) and (not self.ended)
+
+    def is_date_correct(self):
+        if self.date_end < self.date_start:
+            self.date_start, self.date_end = self.date_end, self.date_start
+            return False
+        return True
 
     def save(self, **kwargs):
         if not self.pk:
