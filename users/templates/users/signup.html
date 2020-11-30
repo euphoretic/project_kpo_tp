@@ -1,0 +1,41 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="POST">
+      {% csrf_token %}
+      <h1>Wander</h1>
+      <label for="id_username">
+          <input id="id_username" maxlength="256" name="username" type="name" required />
+          <div class="label-text">Name</div>
+      </label>
+      <label for="id_email">
+          <input id="id_email" maxlength="256" name="email" type="email" required />
+          <div class="label-text">Email</div>
+      </label>
+      <label for="id_password1">
+          <input id="id_password1" maxlength="256" name="password1" type="password" required />
+          <div class="label-text">Password</div>
+      </label>
+      <label for="id_password2">
+          <input id="id_password2" maxlength="256" name="password2" type="password" required />
+          <div class="label-text">Password2</div>
+      </label>
+      <button type="submit">Sign Up</button>
+      <p><a class="link" href="{% url 'users:signin' %}">Sign In</a></p>
+    </form>
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

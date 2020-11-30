@@ -1,13 +1,10 @@
 from django.contrib import admin
-from . import views
-from django.contrib.auth import views as _views
+from . import views as users_views
+from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 app_name = 'users'
 urlpatterns = [
-
-    # path('register', views.register, name='register'),
-    path('signin/', views.user_signin, name='signin'),
-    path('signup/', views.user_signup, name='signup'),
-
+    path('signup/', users_views.SignUpUser.as_view(template_name='users/signup.html'), name='signup'),
+    path('signin/', users_views.SignInUser.as_view(template_name='users/signin.html'), name='signin'),
 ]
