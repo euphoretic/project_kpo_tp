@@ -40,7 +40,7 @@ class FavoritesBase(models.Model):
     class Meta:
         abstract = True
 
-    user = models.ForeignKey(User, verbose_name="Пользователь")
+    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
@@ -50,18 +50,18 @@ class FavoritesAttraction(FavoritesBase):
     class Meta:
         db_table = "favorites_attraction"
 
-    obj = models.ForeignKey(Attraction, verbose_name="Достопримечательность")
+    obj = models.ForeignKey(Attraction, verbose_name="Достопримечательность", on_delete=models.CASCADE)
 
 
 class FavoritesRestaurant(FavoritesBase):
     class Meta:
         db_table = "favorites_restaurant"
 
-    obj = models.ForeignKey(Restaurant, verbose_name="Рестораны")
+    obj = models.ForeignKey(Restaurant, verbose_name="Рестораны", on_delete=models.CASCADE)
 
 
 class FavoritesPosterEvent(FavoritesBase):
     class Meta:
         db_table = "favorites_poster_event"
 
-    obj = models.ForeignKey(PosterEvent, verbose_name="Мероприятия")
+    obj = models.ForeignKey(PosterEvent, verbose_name="Мероприятия", on_delete=models.CASCADE)
