@@ -4,6 +4,7 @@ from django.views import View, generic
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
 from django.contrib.auth import login, authenticate, get_user
 from django.views.generic import CreateView
 
