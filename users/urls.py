@@ -1,5 +1,5 @@
-from django.contrib import admin
 from . import views
+
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from users.models import FavoritesAttraction, FavoritesPosterEvent, FavoritesRestaurant

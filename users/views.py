@@ -1,43 +1,44 @@
 import json
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, get_user
-from django.contrib.auth.forms import UserCreationForm
-
-from django.utils import timezone
 from django.views import View, generic
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate, get_user
+from django.views.generic import CreateView
+
+from .forms import SignUpForm
 
 
-def register(request):
-    """registration new user """
-    if request.method != 'POST':
-        # show empty form
-        form = UserCreationForm()
-    else:
-        # show not empty form
-        form = UserCreationForm(data=request.POST)
+class SignUpUser(CreateView):
+    form_class = UserCreationForm
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'users/signup.html', {'title': 'Регистрация - Wander', 'form': SignUpForm()})
+
+    def post(self, request, *args, **kwargs):
+        form = SignUpForm(data=request.POST)
         if form.is_valid():
-            new_user = form.save()
-
-            # login, to homepage
-            login(request, new_user)
-            return redirect('')
+            form.save()
+            return redirect('/')
+        return render(request, 'users/signup.html', {'title': 'Регистрация - Wander', 'form': form})
 
 
-def user_signin(request):
-    if request.method == 'POST':
-        return render(request, 'users/user_signin.html')
-        # form = LoginForm(data=)
-    return render(request, 'users/user_signin.html')
+class SignInUser(CreateView):
+    form_class = AuthenticationForm
 
+    def get(self, request, *args, **kwargs):
+        return render(request, 'users/signin.html', {'title': 'Вход - Wander', 'form': AuthenticationForm()})
 
-# изменить по типу registration
-def user_signup(request):
-    if request.method == 'POST':
-        return render(request, 'users/user_signup.html')
-        # form = LoginForm(data=)
-    return render(request, 'users/user_signup.html')
+    def post(self, request, *args, **kwargs):
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/')
+        return render(request, 'users/signin.html', {'title': 'Вход - Wander','form': form})
 
 
 class FavoritesView(View):
