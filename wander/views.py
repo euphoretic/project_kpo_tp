@@ -61,10 +61,6 @@ class AttractionDetailView(generic.DetailView):
         return context
 
 
-def favourites(request):
-    return render(request, 'wander/favourites.html')
-
-
 def rating(request):
     return render(request, 'wander/rating.html')
 

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # custom:
     'wander.apps.WanderConfig',
     'users.apps.UsersConfig',
+    'favorites.apps.FavoritesConfig',
 
 ]
 

@@ -67,6 +67,9 @@ class Restaurant(models.Model):
 
 
 class PosterEvent(models.Model):
+    class Meta:
+        db_table = "poster_event"
+
     place = models.ForeignKey(Place, on_delete=models.CASCADE, )
     date_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     date_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)

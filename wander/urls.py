@@ -4,7 +4,7 @@ from wander.views import PosterEventListView, PosterEventDetailView
 
 urlpatterns = [
     path('', PosterEventListView.as_view(), name='poster-list'),
-    path('<slug:slug>/', PosterEventDetailView.as_view(), name='poster-detail'),
+    path('poster/<int:pk>/', PosterEventDetailView.as_view(), name='poster-detail'),
     # path('favourites', views.favourites, name='favourites'),
     # path('posters', views.PosterEventListView, name='poster-list'),
     # path('posters/<int:pk>', views.PosterEventListView.as_view(), name='posters'),
