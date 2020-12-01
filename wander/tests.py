@@ -25,13 +25,3 @@ class PosterEventModelTests(TestCase):
         # future_poster_event.is_date_correct()
         self.assertIs(future_poster_event.is_date_correct(), False)
 
-    # def test_was_published_recently_with_future_question(self):
-    #     """
-    #     was_published_recently() возвращает False для мероприятий у которых
-    #     is in the future.
-    #     """
-    #     time = timezone.now() + datetime.timedelta(days=30)
-    #     future_question = Question(pub_date=time)
-    #     self.assertIs(future_question.was_published_recently(), False)
-
-
