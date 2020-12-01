@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Достопримечательности</title>
+</head>
+<body>
+    <h1>Достопримечательности</h1>
+    <ul>
+        {% for attraction in object_list %}
+            <li>{{ attraction.place }} - {{ attraction.name }}</li>
+        {% empty %}
+            <li>Пока ещё нет достопримечательностей.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
