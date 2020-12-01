@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>{{ object.name }}</title>
 </head>
 <body>
-$END$
+    <h1>{{ object.name }}</h1>
+    <p>{{ object.content }}</p>
+    <p>Расположено по адресу: {{ object.place.city }}, {{ object.place.full_address }}</p>
+
 </body>
 </html>
