@@ -1,0 +1,24 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <form method="POST">
+      {% csrf_token %}
+      <h1>Wander</h1>
+      <label for="id_old_password">
+          <input id="id_old_password" maxlength="256" name="old_password" type="password" required />
+          <div class="label-text">Old Password</div>
+      </label>
+      <label for="id_new_password">
+          <input id="id_new_password" maxlength="256" name="new_password1" type="password" required />
+          <div class="label-text">New Password</div>
+      </label>
+      <label for="id_new_password2">
+          <input id="id_new_password2" maxlength="256" name="new_password2" type="password" required />
+          <div class="label-text">New Password2</div>
+      </label>
+      <button type="submit">Change</button>
+      <p><a class="link" href="/users/test">Don't change</a></p>
+    </form>
+{% endblock %}

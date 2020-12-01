@@ -1,0 +1,18 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <form>
+      <h1>Вы авторизованы, {{ user.username }}</h1>
+      <button type="submit" formaction="{% url 'users:change' %}">Изменить пароль</button><p></p>
+      <button type="submit" formaction="{% url 'users:logout' %}">Выйти</button>
+    </form>
+  {% else %}
+    <form>
+      <h1>Вы НЕ авторизованы</h1>
+      <button type="submit" formaction="{% url 'users:signin' %}">Войти</button><p></p>
+      <button type="submit" formaction="{% url 'users:signup' %}">Зарегистрироваться</button>
+    </form>
+  {% endif %}
+{% endblock %}
