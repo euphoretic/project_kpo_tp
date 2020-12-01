@@ -23,5 +23,16 @@ class PosterEventModelTests(TestCase):
         time_end = timezone.now() - datetime.timedelta(days=30)
         future_poster_event = PosterEvent(date_start=time_start, date_end=time_end)
         # future_poster_event.is_date_correct()
-        self.assertIs(future_poster_event.is_date_correct(), False)
+        self.assertIs(future_poster_event.is_date_correct(), True)
 
+
+
+
+
+
+
+
+
+
+
+# class PosterEventListViewTest(TestCase):
