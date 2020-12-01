@@ -1,62 +1,108 @@
+import datetime
+
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class SelectCity(models.Model):
-    city_for_choice = (
-        ('CHE', 'Cheboksary'),
-        ('GUS', 'Gus-khrustalny'),
-    )
-    selected_city = models.CharField(max_length=3, choices=city_for_choice)
+class City(models.Model):
+    name = models.CharField(max_length=20)
+
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new City!')
+        else:
+            print('Updating the existing one')
+        super(City, self).save(**kwargs)
 
     def __str__(self):
-        return str(self.selected_city)
+        return "%s" % self.name
 
 
 class Place(models.Model):
-    city = models.ForeignKey(SelectCity, on_delete=models.CASCADE, verbose_name='city')
-    full_address = models.CharField(max_length=150)
-    name_place = models.CharField(max_length=50)
-    place_rating = models.FloatField(max_length=3)
-    description = models.CharField(max_length=120)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='city')
+    full_address = models.CharField(max_length=255)
+    name = models.CharField(max_length=50)
+    rating = models.FloatField(max_length=3)
+    description = models.CharField(max_length=255)
+
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new Place!')
+        else:
+            print('Updating the existing one')
+        super(Place, self).save(**kwargs)
 
     def __str__(self):
-        return self.full_address+' '+self.city.__str__()+' '+self.name_place
-
-    # def save(self, *args, **kwargs):
-    #     print('Creating new Place!')
-    #     super().save(*args, **kwargs)
+        return "%s: %s, %s" % (self.name, self.city.__str__(),  self.full_address)
 
 
-class Attraction(Place):
-    history = models.CharField(max_length=120)
+class Attraction(models.Model):
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, )
+    history = models.CharField(max_length=255)
+
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new Attraction!')
+        else:
+            print('Updating the existing one')
+        super(Attraction, self).save(**kwargs)
+
+    def __str__(self):
+        return "%s the attraction" % self.place.name
 
 
-class Restaurant(Place):
-    pass
+class Restaurant(models.Model):
+    place = models.ForeignKey(Place, on_delete=models.CASCADE,)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=255)
+
+    def save(self, **kwargs):
+        if not self.pk:
+            print('Creating new Restaurant!')
+        else:
+            print('Updating the existing one')
+        super(Restaurant, self).save(**kwargs)
+
+    def __str__(self):
+        return "%s the restaurant" % self.name
 
 
-class PosterEvent(Place):
-    date_event_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
-    date_event_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
-    name_event = models.CharField(max_length=30, default='add_name_event')
+class PosterEvent(models.Model):
+    class Meta:
+        db_table = "poster_event"
+
+    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    date_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
+    date_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
+    name = models.CharField(max_length=30, default='add_name_event')
     ended = models.BooleanField(default=False)
 
-    def mark_ended(self, commit=True):
-        self.ended = True
-        if commit:
-            self.save()
+    def mark_ended(self, commit=False):
+        if commit or (self.was_ended()):
+            self.ended = True
+            # self.save()
+
+    def was_ended(self):
+        now = timezone.now()
+        return (self.date_end < now) or self.ended
+
+    def was_start(self):
+        now = timezone.now()
+        return (now < self.date_end) and (not self.ended)
+
+    def is_date_correct(self):
+        if self.date_end < self.date_start:
+            self.date_start, self.date_end = self.date_end, self.date_start
+            return False
+        return True
 
     def save(self, **kwargs):
         if not self.pk:
             print('Creating new Event!')
         else:
             print('Updating the existing one')
-
         super(PosterEvent, self).save(**kwargs)
 
-
-
-
-
+    def __str__(self):
+        return "Event: %s %s " % (self.name, self.place)

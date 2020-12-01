@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Регистрация - Wander</title>
+    <title>{{title}}</title>
     <style>
       body {
         display: flex;
@@ -115,23 +115,10 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body class="text-center background">
-  <form>
-      <h1>Wander</h1>
-      <label>
-          <input id="user_name" type="text" required />
-          <div class="label-text">Name</div>
-      </label>
-      <label>
-          <input id="user_email" type="text" required />
-          <div class="label-text">Email</div>
-      </label>
-      <label>
-          <input type="password" id="user_pass" required />
-          <div class="label-text">Password</div>
-      </label>
-      <button>Sign Up</button>
-      <p><a class="link" href="{% url 'users:signin' %}">Sign In</a></p>
-  </form>
+<body>
+  <body class="text-center background container">
+    {% block content %}
+    {% endblock %}
+  </div>
 </body>
 </html>

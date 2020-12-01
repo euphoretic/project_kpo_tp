@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'wander.apps.WanderConfig',
     'users.apps.UsersConfig',
 
+
 ]
 
 MIDDLEWARE = [
@@ -130,6 +131,6 @@ STATIC_URL = '/static/'
 
 # LOGIN_URL = 'user:login'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 
