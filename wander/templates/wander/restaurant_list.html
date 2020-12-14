@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рестораны</title>
+</head>
+<body>
+    <h1>Рестораны</h1>
+    <ul>
+        {% for restaurants in object_list %}
+            <li>{{ restaurants.place }} - {{ restaurants.name }}</li>
+        {% empty %}
+            <li>Пока ещё нет ресторанов.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

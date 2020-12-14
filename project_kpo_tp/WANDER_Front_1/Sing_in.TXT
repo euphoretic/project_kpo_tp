@@ -1,0 +1,146 @@
+/* HTML*/
+<div id="popup" class="popup">
+		<div class="popup_body">
+			<div class="popup_content">
+				<a class="popup_close" href="#"><img src="img/close.svg" alt="X"></a>
+				<div class="popup_title">
+					<p><img src="img/Wander.svg" alt="wan">
+					WANDER</p> <br>
+					Войдите в систему.
+				</div>
+				<div class="popup_text">
+					<p>Адрес электронной почты</p>
+					<input class="input" type="text" placeholder="Эл.почта">
+					<p>Пароль</p>
+					<input class="input" type="password" placeholder="Пароль">
+					<button class="si_in">Войти</button>
+					<a class="fogget" href="#"> Забыли пароль?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+/* CSS*/
+.popup{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.8);
+	top: 0;
+	left: 0;
+
+	opacity: 0;
+	visibility: hidden;
+}
+.popup:target{
+	opacity: 1;
+	visibility: visible;
+}
+.popup_body{
+	min-height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+.popup_content{
+	position: relative;
+	background-color: #fff;
+	color:#000;
+	max-height: 654px;
+	max-width: 460px;
+	padding: 53px;
+}
+.popup_close{
+	position: absolute;
+	right: 17px;
+	top:17px;
+}
+.popup_title>p{
+	font-family: Roboto;
+	font-weight: 500;
+	font-size: 48px;
+	line-height: 56px;
+	letter-spacing: 0.05em;
+}
+.popup_title{
+	font-family: Arial;
+	font-size: 18px;
+	line-height: 21px;
+	letter-spacing: 0.05em;
+	margin-bottom:30px;
+}
+.popup_text{
+	display: flex;
+	flex-direction: column;
+}
+.popup_text>p{
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+	margin-bottom:12px;
+}
+.popup_text>input{
+	width: 360px;
+	height: 52px;
+	margin-bottom:30px;
+
+	font-family: Arial;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+
+	color: #000;
+	padding-left: 15px;
+
+	background: #FFFFFF;
+	border: 2px solid #E2E2E2;
+	box-sizing: border-box;
+	border-radius: 12px;
+}
+input[type="text"]::-webkit-input-placeholder{
+	font-family: Arial;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+
+	color: #BABABA;
+}
+input[type="password"]::-webkit-input-placeholder{
+	font-family: Arial;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+
+	color: #BABABA;
+}
+.si_in{
+	border:none;
+	width: 360px;
+	height: 52px;
+	margin-bottom:30px;
+
+	background: #000;
+	color: #fff;
+	box-sizing: border-box;
+	border-radius: 12px;
+
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+}
+.fogget{
+	text-decoration: none;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+
+	color: #000000;
+	margin-bottom: 120px;
+}

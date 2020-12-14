@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <form method="POST">
+      {% csrf_token %}
+      <h1>Wander</h1>
+      <label for="id_username">
+          <input id="id_username" maxlength="256" name="username" required />
+          <div class="label-text">Username</div>
+      </label>
+      <label for="id_password">
+          <input id="id_password" maxlength="256" name="password" type="password" required />
+          <div class="label-text">Password</div>
+      </label>
+      <button type="submit">Sign In</button>
+      <p><a class="link" href="{% url 'users:signup' %}">Sign Up</a></p>
+    </form>
+{% endblock %}
