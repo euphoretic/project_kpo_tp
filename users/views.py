@@ -10,7 +10,7 @@ from django.views.generic import CreateView
 
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.template import loader
+
 
 from .forms import SignUpForm
 
@@ -35,10 +35,6 @@ class SignUpUser(CreateView):
 class SignInUser(CreateView):
     form_class = AuthenticationForm
 
-    def get(self, request, *args, **kwargs):
-        form = AuthenticationForm()
-        return render_to_response('/', {'form': form}, context_instance=RequestContext(request))
-
     def post(self, request, *args, **kwargs):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -49,9 +45,12 @@ class SignInUser(CreateView):
                 login(request, user)
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
             else:
-                return render_to_response('/', {'form': form}, context_instance=RequestContext(request))
-        else: return render_to_response('/', {'form': form}, context_instance=RequestContext(request))
-#template = loader.get_template('wander/base_new.html')   context = {'form': form}
+                # TODO нет такого пользователя
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            # TODO неверно заполненная форма
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 class SignOutView(CreateView):
     def get(self, request, *args, **kwargs):
         logout(request)
