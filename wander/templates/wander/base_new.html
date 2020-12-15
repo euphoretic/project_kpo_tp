@@ -32,9 +32,15 @@
 							<p>Избранное</p></div></a>
 						</li>
 					</ul>
-				<a class="sing_in" href="#popup">
-					Войти
-				 </a>
+				{% if user.is_authenticated %}
+					<a class="sing_in" href="/users/signout/">
+						Выйти
+					 </a>
+				{% else %}
+					<a class="sing_in" href="#popup">
+						Войти
+					 </a>
+				{% endif %}
 			</div>
 		</header>
 
@@ -70,15 +76,22 @@
 						Войдите в систему.
 					</div>
 					<div class="popup_text">
-						<p>Адрес электронной почты</p>
+						<form action='/users/signin/' method="POST">
+						  {% csrf_token %}
+							<p>Имя пользователя</p>
+						  <input class="input" type="text" placeholder="Имя пользователя" maxlength="256" name="username" required />
+							<p>Пароль</p>
+						  <input class="input" type="password" placeholder="Пароль" maxlength="256" name="password" type="password" required />
+						  <button class="si_in" type="submit">Войти</button>
+						</form>
+						<!-- <p>Адрес электронной почты</p>
 						<input class="input" type="text" placeholder="Эл.почта">
 						<p>Пароль</p>
 						<input class="input" type="password" placeholder="Пароль">
-						<button class="si_in">Войти</button>
+						<button class="si_in">Войти</button> -->
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</body>
 </html>
