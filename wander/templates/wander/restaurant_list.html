@@ -1,17 +1,28 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Рестораны</title>
-</head>
-<body>
-    <h1>Рестораны</h1>
-    <ul>
+{% extends 'wander/base_new.html' %}
+{% load static %}
+{% block title %}Рестораны{% endblock %}
+{% block eat_checked %}checked{% endblock %}
+{% block context %}
+    <section class="blocks-row-city">
         {% for restaurants in object_list %}
-            <li>{{ restaurants.place }} - {{ restaurants.name }}</li>
+            <a href="#">
+                <div class="block">
+                    <div class="bl_img" > <!--style="background-image:-->
+                        <button>
+                            <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"> </div>
+                        </button>
+                    </div>
+                    <div class="bl_text">
+                        <div class="name">{{ restaurants.name }}</div>
+                        <div class="address">{{ restaurants.place }}</div>
+                    </div>
+                </div>
+            </a>
         {% empty %}
             <li>Пока ещё нет ресторанов.</li>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </section>
+{% endblock %}
+
+
+

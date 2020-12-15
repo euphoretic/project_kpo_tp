@@ -141,10 +141,10 @@ section{
 	display: block;
 	margin:26px 8px;
 }
-.reating>a>div{
+.checked>a>div{
 	background-color: #000;
 }
-.reating>a>div>p{
+.checked>a>div>p{
 	color: #FFFFFF;
 }
 .blocks-row-city{
@@ -224,7 +224,7 @@ section{
 	line-height: 20px;
 	color: #000000;
 }
-.adress{
+.address{
 	font-family: Roboto;
 	font-size: 17px;
 	line-height: 20px;

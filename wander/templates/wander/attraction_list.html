@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Достопримечательности</title>
-</head>
-<body>
-    <h1>Достопримечательности</h1>
-    <ul>
+{% extends 'wander/base_new.html' %}
+{% load static %}
+{% block title %}Достопримечательности{% endblock %}
+{% block place_checked %}checked{% endblock %}
+{% block context %}
+    <section class="blocks-row-city">
         {% for attraction in object_list %}
-            <li>{{ attraction.place }} - {{ attraction.name }}</li>
+            <a href="#">
+                <div class="block">
+                    <div class="bl_img" > <!--style="background-image:-->
+                        <button>
+                            <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"> </div>
+                        </button>
+                    </div>
+                    <div class="bl_text">
+                        <div class="name">{{ attraction.name }}</div>
+                        <div class="address">{{ attraction.place }}</div>
+                    </div>
+                </div>
+            </a>
         {% empty %}
             <li>Пока ещё нет достопримечательностей.</li>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </section>
+{% endblock %}
+
+
