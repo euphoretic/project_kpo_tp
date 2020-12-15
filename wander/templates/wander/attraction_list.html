@@ -1,10 +1,10 @@
 {% extends 'wander/base_new.html' %}
 {% load static %}
-{% block title %}Афиша{% endblock %}
-{% block poster_checked %}checked{% endblock %}
+{% block title %}Достопримечательности{% endblock %}
+{% block place_checked %}checked{% endblock %}
 {% block context %}
     <section class="blocks-row-city">
-        {% for poster in object_list %}
+        {% for attraction in object_list %}
             <a href="#">
                 <div class="block">
                     <div class="bl_img" > <!--style="background-image:-->
@@ -13,15 +13,15 @@
                         </button>
                     </div>
                     <div class="bl_text">
-                        <div class="name">{{ poster.name }}</div>
-                        <div class="address">{{ poster.place.name }}</div>
-                        <div class="datetime">{{ poster.date_start }}</div>
+                        <div class="name">{{ attraction.name }}</div>
+                        <div class="address">{{ attraction.place }}</div>
                     </div>
                 </div>
             </a>
         {% empty %}
-            <li>Пока ещё нет мероприятий.</li>
+            <li>Пока ещё нет достопримечательностей.</li>
         {% endfor %}
     </section>
 {% endblock %}
+
 
