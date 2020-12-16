@@ -7,8 +7,8 @@ from users.models import FavoritesAttraction, FavoritesPosterEvent, FavoritesRes
 app_name = 'users'
 urlpatterns = [
     path('signup/', views.SignUpUser.as_view(template_name='users/signup.html'), name='signup'),
-    path('signin/', views.SignInUser.as_view(template_name='users/signin.html'), name='signin'),
-    path('logout/', views.SignOutView.as_view(), name='logout'),
+    path('signin/',views.SignInUser.as_view(), name ="signin"),
+    path('signout/', views.SignOutView.as_view(), name='signout'),
     path('change/', views.ChangeUserView.as_view(), name='change'),
     path('test/', views.TestView.as_view(template_name='users/test.html'), name='test'),
     path('favorites/attraction',

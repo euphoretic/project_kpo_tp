@@ -8,6 +8,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth import login, authenticate, logout, get_user, update_session_auth_hash
 from django.views.generic import CreateView
 
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+
+
 from .forms import SignUpForm
 
 class SignUpUser(CreateView):
@@ -31,23 +35,26 @@ class SignUpUser(CreateView):
 class SignInUser(CreateView):
     form_class = AuthenticationForm
 
-    def get(self, request, *args, **kwargs):
-        return render(request, 'users/signin.html', {'title': 'Вход - Wander', 'form': AuthenticationForm()})
-
     def post(self, request, *args, **kwargs):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('/users/test') # temp, redirect('/')
-        return render(request, 'users/signin.html', {'title': 'Вход - Wander','form': form})
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            else:
+                # TODO нет такого пользователя
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            # TODO неверно заполненная форма
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 class SignOutView(CreateView):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return redirect('/users/test') # temp, redirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 class ChangeUserView(CreateView):
     form_class = PasswordChangeForm
