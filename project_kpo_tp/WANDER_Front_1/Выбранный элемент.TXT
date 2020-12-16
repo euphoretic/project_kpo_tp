@@ -1,9 +1,0 @@
-<p>Афиша</p>
-
-
-.poster>a>div{
-	background-color: #000;
-}
-.poster>a>div>p{
-	color: #FFFFFF;
-}
