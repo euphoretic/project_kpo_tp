@@ -31,9 +31,15 @@
 							<p>Избранное</p></div></a>
 						</li>
 					</ul>
-				<a class="sing_in" href="#popup">
-					Войти
-				 </a>
+					{% if user.is_authenticated %}
+						<a class="sing_in" href="/users/signout/"> <!-- /users/signout/ -->
+							Выйти
+						 </a>
+					{% else %}
+						<a class="sing_in" href="#popup">
+							Войти
+						 </a>
+					{% endif %}
 			</div>
 		</header>
 
@@ -59,30 +65,84 @@
 					<div class="dropdown-content">
 					    <a href="#">Сменить город</a>
 					    <a href="#">Информация об <br> учетной записи</a>
+							<a href="#popup_change">Изменить пароль</a>
 					    <a href="#">Выйти</a>
 					</div>
 				</li>
             </ul>
         </section>
-		{% block context %}{% endblock %}
-		<div id="popup" class="popup">
-			<div class="popup_body">
-				<div class="popup_content">
-					<a class="popup_close" href="#"><img src={% static 'wander/img/close.svg' %} alt="X"></a>
-					<div class="popup_title">
-						<p><img src={% static 'wander/img/Wander.svg' %} alt="wan">WANDER</p> <br>
-						Войдите в систему.
-					</div>
-					<div class="popup_text">
-						<p>Адрес электронной почты</p>
-						<input class="input" type="text" placeholder="Эл.почта">
-						<p>Пароль</p>
-						<input class="input" type="password" placeholder="Пароль">
-						<button class="si_in">Войти</button>
+				{% block context %}{% endblock %}
+				<div id="popup" class="popup">
+					<div class="popup_body">
+						<div class="popup_content">
+							<a class="popup_close" href="#"><img src={% static 'wander/img/close.svg' %} alt="X"></a>
+							<div class="popup_title">
+								<p><img src={% static 'wander/img/Wander.svg' %} alt="wan">WANDER</p> <br>
+								Войдите в систему.
+							</div>
+							<div class="popup_text">
+								<form action='/users/signin/' method="POST">
+								  {% csrf_token %}
+									<p>Имя пользователя</p>
+								  <input class="input" type="text" placeholder="Имя пользователя" maxlength="256" name="username" required />
+									<p>Пароль</p>
+								  <input class="input" type="password" placeholder="Пароль" maxlength="256" name="password" type="password" required />
+								  <button class="si_in" type="submit">Войти</button>
+									<a class="fogget" href="#popup_reg"> Регистрация</a>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-
-	</body>
+				<div id="popup_reg" class="popup">
+							<div class="popup_body">
+								<div class="popup_content">
+									<a class="popup_close" href="#"><img src="img/close.svg" alt="X"></a>
+									<div class="popup_title">
+										<p><img src="img/Wander.svg" alt="wan">
+										WANDER</p> <br>
+										Регистрация
+									</div>
+									<div class="popup_text">
+										<form action='/users/signup/' method="POST">
+								      {% csrf_token %}
+											<p>Имя пользователя</p>
+								      <input class="input" type="text" placeholder="Имя пользователя" name="username" required />
+											<p>Адрес электронной почты</p>
+						          <input class="input" type="email" placeholder="Эл.почта" name="email" required />
+											<p>Пароль</p>
+						          <input class="input" type="password" placeholder="Пароль" name="password1" required />
+											<p>Повторите пароль</p>
+						          <input class="input" type="password" placeholder="Пароль" name="password2" required />
+								      <button class="si_in" stype="submit">Зарегистрироваться</button>
+								    </form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="popup_change" class="popup">
+									<div class="popup_body">
+										<div class="popup_content">
+											<a class="popup_close" href="#"><img src="img/close.svg" alt="X"></a>
+											<div class="popup_title">
+												<p><img src="img/Wander.svg" alt="wan">
+												WANDER</p> <br>
+												Изменение пароля
+											</div>
+											<div class="popup_text">
+												<form action='/users/change/' method="POST">
+										      {% csrf_token %}
+													<p>Старый пароль</p>
+								          <input class="input" type="password" placeholder="Старый пароль" name="old_password" required />
+													<p>Новый пароль</p>
+								          <input class="input" type="password" placeholder="Новый пароль" name="new_password1" required />
+													<p>Повторите новый пароль</p>
+								          <input class="input" type="password" placeholder="Новый пароль" name="new_password2" required />
+										      <button class="si_in" stype="submit">Изменить пароль</button>
+										    </form>
+											</div>
+										</div>
+									</div>
+								</div>
+			</body>
 </html>

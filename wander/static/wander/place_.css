@@ -39,9 +39,9 @@ header{
 	border: 2px solid #000000;
 }
 .mini_menu>li{
-	
+
 	margin:8px 20px;
-	
+
 	box-sizing: border-box;
 	border-radius: 13px;
 
@@ -91,7 +91,7 @@ header{
 }
 section{
 	width: 1280px;
-	min-height: 10px; 
+	min-height: 10px;
 	margin:0 auto;
 	position: relative;
 }
@@ -349,7 +349,7 @@ section{
 	display: flex;
 	flex-direction: column;
 }
-.popup_text>p{
+.popup_text>form>p{
 	font-family: Arial;
 	font-weight: bold;
 	font-size: 16px;
@@ -357,7 +357,7 @@ section{
 	letter-spacing: 0.05em;
 	margin-bottom:12px;
 }
-.popup_text>input{
+.popup_text>form>input{
 	width: 360px;
 	height: 52px;
 	margin-bottom:30px;
@@ -451,7 +451,7 @@ input[type="password"]::-webkit-input-placeholder{
 	margin-top: 10px;
 	font-family: Roboto;
 	font-size: 30px;
-	line-height: 35px;	
+	line-height: 35px;
 	color: #6E6E6E;
 }
 .text{
@@ -462,5 +462,5 @@ input[type="password"]::-webkit-input-placeholder{
 }
 .img_event>img{
 	height: 384px;
-	width:463px;	
+	width:463px;
 }
