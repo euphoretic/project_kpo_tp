@@ -71,23 +71,23 @@ header{
 }
 .sing_in{
 	text-decoration: none;
-	border:none;
-	position: absolute;
-	left:1168px;
-	background: #000000;
-	border-radius: 18px;
+  position: absolute;
+  left:1168px;
+  background: #000000;
+  border-radius: 18px;
 
-	height: 39px;
-	width: 81px;
-	margin: 8px 0;
+  max-height: 39px;
+  max-width: 81px;
+  margin: 8px 0;
+  padding: 10px 15px;
 
-	font-family: Arial;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 18px;
-	letter-spacing: 0.05em;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: 0.05em;
 
-	color: #FFFFFF;
+  color: #FFFFFF;
 }
 section{
 	width: 1280px;
@@ -406,7 +406,7 @@ input[type="text"]::-webkit-input-placeholder{
 	display: flex;
 	flex-direction: column;
 }
-.popup_text>p{
+.popup_text>form>p{
 	font-family: Arial;
 	font-weight: bold;
 	font-size: 16px;
@@ -414,7 +414,7 @@ input[type="text"]::-webkit-input-placeholder{
 	letter-spacing: 0.05em;
 	margin-bottom:12px;
 }
-.popup_text>input{
+.popup_text>form>input{
 	width: 360px;
 	height: 52px;
 	margin-bottom:30px;

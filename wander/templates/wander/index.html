@@ -10,52 +10,56 @@
 <body>
 	<header>
 		<div class="main_panel">
+            <a href={% url 'homepage' %}>
 			<div class="logo">
-				<img class="logo_img" src={% static "wander/img\logo.svg" %} alt="logo">
+				<img class="logo_img" src={% static "wander/img/logo.svg" %} alt="logo">
 				<span class="logo_text">
 					WANDER
 				</span>
 			</div>
+                </a>
 			<ul class="mini_menu">
 					<li class = "publish">
 						<a href="#"><div><img src={% static "wander/img/add.png" %} alt="">
 						<p>Опубликовать</p></div></a>
 					</li>
 					<li class ="favorites">
-						<a href={% url 'users:favourite_list' %}><div><img src={%  static "wander/img/love.png" %} alt="">
+						<a href={% url 'users:favourite_list' %}><div><img src={% static "wander/img/love.png" %} alt="">
 						<p>Избранное</p></div></a>
 					</li>
 				</ul>
-			<button class="sing_in"> 
-				Войти
-			 </button>
+                {% if user.is_authenticated %}
+                    <a class="sing_in" href={% url "users:signout" %}> <!-- /users/signout/ -->Выйти</a>
+                {% else %}
+                    <a class="sing_in" href="#popup">Войти</a>
+                {% endif %}
 		</div>
 	</header>
 	<section class="main_menu">
 		<ul class="menu">
-            <li class="place {% block place_checked %}{% endblock %}"> <a href={% url 'attraction-list'  %}  ><div><p>Достоприме-чательности</p>
-                    <img src={% static 'wander/img/place.png' %} alt="place"></div></a>
-                </li>
-                <li class="poster {% block poster_checked %}{% endblock %}">	<a href={%  url 'poster-list' %}><div><p>Афиша</p>
-                    <img src={% static 'wander/img/poster.png' %} alt="poster"></div></a>
-                </li>
-                <li class="eat {% block eat_checked %}{% endblock %}"><a href={% url 'restaurant-list' %}><div><p>Рестораны</p>
-                    <img src={% static 'wander/img/restaurant.png' %} alt="eat"></div></a>
-                </li>
-                <li class="tickets {% block tickets_checked %}{% endblock %}"><a href={% url 'poster-list' %}><div><p>Развлечения</p>
-                    <img src={% static 'wander/img/tickets.png' %} alt="tickets"></div></a>
-                </li>
-                <li class="rating {% block rating_checked %}{% endblock %}"><a href={% url 'rating' %}><div><p>Рейтинг</p>
-                    <img src={% static 'wander/img/rating.png' %} alt="rating"></div></a>
-                </li>
-                <li class="setting"><button class="settings"><div><p>Настройки</p>
-					<img src={% static 'wander/img/settings.png' %} alt="settings"></div></button>
-					<div class="dropdown-content">
-					    <a href="#">Сменить город</a>
-					    <a href="#">Информация об <br> учетной записи</a>
-					    <a href="#">Выйти</a>
-					</div>
-				</li>
+			<li class="place"> <a href={% url 'attraction-list'  %}><div>Достоприме-чательности
+				<img src={% static 'wander/img/place.png' %} alt="place"></div></a>
+			</li>
+			<li class="poster">	<a href={%  url 'poster-list' %}><div>Афиша
+				<img src={% static 'wander/img/poster.png' %} alt="poster"></div></a>
+			</li>
+			<li class="eat"><a href={% url 'restaurant-list' %}><div>	Рестораны
+				<img src={% static 'wander/img/tickets.png' %} alt="restaurant"></div></a>
+			</li>
+			<li class="tickets"><a href={% url 'poster-list' %}><div>Развлечения
+				<img src={% static 'wander/img/tickets.png' %} alt="place"></div></a>
+			</li>
+			<li class="reiting"><a href={% url 'rating' %}><div>Рейтинг
+				<img src={% static 'wander/img/rating.png' %} alt="rating"></div></a>
+			</li>
+			<li class="setting"><button class="settings"><div><p>Настройки</p>
+                <img src={% static 'wander/img/settings.png' %} alt="settings"></div></button>
+                <div class="dropdown-content">
+                    <a href="#">Сменить город</a>
+                    <a href="#">Информация об <br> учетной записи</a>
+                    <a href="#popup_change">Изменить пароль</a>
+                </div>
+            </li>
 		</ul>
 	</section>
 	<section class="second">
@@ -125,25 +129,26 @@
 					Москва, Россия
 				</div>
 			</div>
-			
 		</div>
 	</section>
     <div id="popup" class="popup">
 			<div class="popup_body">
 				<div class="popup_content">
-					<a class="popup_close" href="#"><img src="img/close.svg" alt="X"></a>
+					<a class="popup_close" href="#"><img src={% static 'wander/img/close.svg' %} alt="X"></a>
 					<div class="popup_title">
-						<p><img src="img/Wander.svg" alt="wan">
-						WANDER</p> <br>
+						<p><img src={% static 'wander/img/Wander.svg' %} alt="wan">WANDER</p><br>
 						Войдите в систему.
 					</div>
 					<div class="popup_text">
-						<p>Адрес электронной почты</p>
-						<input class="input" type="text" placeholder="Эл.почта">
-						<p>Пароль</p>
-						<input class="input" type="password" placeholder="Пароль">
-						<button class="si_in">Войти</button>
-						<a class="fogget" href="#popup_reg"> Регистрация</a>
+						<form action={% url 'users:signin' %} method="POST">
+                          {% csrf_token %}
+                            <p>Имя пользователя</p>
+                          <input class="input" type="text" placeholder="Имя пользователя" maxlength="256" name="username" required />
+                            <p>Пароль</p>
+                          <input class="input" type="password" placeholder="Пароль" maxlength="256" name="password" type="password" required />
+                          <button class="si_in" type="submit">Войти</button>
+                            <a class="fogget" href="#popup_reg"> Регистрация</a>
+                        </form>
 					</div>
 				</div>
 			</div>
@@ -151,24 +156,52 @@
 		<div id="popup_reg" class="popup">
 			<div class="popup_body">
 				<div class="popup_content">
-					<a class="popup_close" href="#"><img src="img/close.svg" alt="X"></a>
+					<a class="popup_close" href="#" onclick="history.go(1)"><img src={% static "wander/img/close.svg" %} alt="X"></a>
 					<div class="popup_title">
-						<p><img src="img/Wander.svg" alt="wan">
+                        <p><img src={% static "wander/img/Wander.svg" %} alt="wan">
 						WANDER</p> <br>
 						Регистрация
 					</div>
 					<div class="popup_text">
-						<p>Адрес электронной почты</p>
-						<input class="input" type="text" placeholder="Эл.почта">
-						<p>Пароль</p>
-						<input class="input" type="password" placeholder="Пароль">
-						<p>Повторите пароль</p>
-						<input class="input" type="password" placeholder="Пароль">
-						<button class="si_in">Зарегистрироваться</button>
-					</div>
+                    <form action={% url 'users:signup' %} method="POST">
+                    {% csrf_token %}
+                        <p>Имя пользователя</p>
+                    <input class="input" type="text" placeholder="Имя пользователя" name="username" required />
+                        <p>Адрес электронной почты</p>
+                    <input class="input" type="email" placeholder="Эл.почта" name="email" required />
+                        <p>Пароль</p>
+                    <input class="input" type="password" placeholder="Пароль" name="password1" required />
+                        <p>Повторите пароль</p>
+                    <input class="input" type="password" placeholder="Пароль" name="password2" required />
+                  <button class="si_in" stype="submit">Зарегистрироваться</button>
+                </form>
+                </div>
 				</div>
 			</div>
 		</div>
-	
+        <div id="popup_change" class="popup">
+        <div class="popup_body">
+            <div class="popup_content">
+                <a class="popup_close" href="#" onclick="history.go(1)"><img src={% static "wander/img/close.svg" %} alt="X"></a>
+                <div class="popup_title">
+                    <p><img src={% static "wander/img/Wander.svg" %} alt="wan">
+                    WANDER</p> <br>
+                    Изменение пароля
+                </div>
+                <div class="popup_text">
+                    <form action='/users/change/' method="POST">
+                  {% csrf_token %}
+                        <p>Старый пароль</p>
+              <input class="input" type="password" placeholder="Старый пароль" name="old_password" required />
+                        <p>Новый пароль</p>
+              <input class="input" type="password" placeholder="Новый пароль" name="new_password1" required />
+                        <p>Повторите новый пароль</p>
+              <input class="input" type="password" placeholder="Новый пароль" name="new_password2" required />
+                  <button class="si_in" stype="submit">Изменить пароль</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

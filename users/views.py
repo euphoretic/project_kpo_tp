@@ -1,7 +1,3 @@
-import json
-
-from django.views import View, generic
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
@@ -9,8 +5,7 @@ from django.contrib.auth import login, authenticate, logout, get_user, update_se
 from django.views.generic import CreateView
 from .forms import SignUpForm
 from wander.models import Restaurant, PosterEvent, Attraction
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+
 
 @ login_required
 def favourite_list(request):
@@ -92,7 +87,7 @@ class SignInUser(CreateView):
 class SignOutView(CreateView):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect('/')
 
 
 class ChangeUserView(CreateView):
@@ -106,6 +101,7 @@ class ChangeUserView(CreateView):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 class TestView(CreateView):
     def get(self, request, *args, **kwargs):
