@@ -9,7 +9,8 @@ from django.contrib.auth import login, authenticate, logout, get_user, update_se
 from django.views.generic import CreateView
 from .forms import SignUpForm
 from wander.models import Restaurant, PosterEvent, Attraction
-
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 @ login_required
 def favourite_list(request):
@@ -56,9 +57,6 @@ def favourite_add_restaurant(request, id):
 class SignUpUser(CreateView):
     form_class = UserCreationForm
 
-    def get(self, request, *args, **kwargs):
-        return render(request, 'users/signup.html', {'title': 'Регистрация - Wander', 'form': SignUpForm()})
-
     def post(self, request, *args, **kwargs):
         form = SignUpForm(data=request.POST)
         if form.is_valid():
@@ -67,15 +65,12 @@ class SignUpUser(CreateView):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('/users/test') # temp, redirect('/')
-        return render(request, 'users/signup.html', {'title': 'Регистрация - Wander', 'form': form})
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class SignInUser(CreateView):
     form_class = AuthenticationForm
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'users/signin.html', {'title': 'Вход - Wander', 'form': AuthenticationForm()})
 
     def post(self, request, *args, **kwargs):
         form = AuthenticationForm(data=request.POST)
@@ -83,34 +78,35 @@ class SignInUser(CreateView):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('/users/test') # temp, redirect('/')
-        return render(request, 'users/signin.html', {'title': 'Вход - Wander','form': form})
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            else:
+                # TODO нет такого пользователя
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            # TODO неверно заполненная форма
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class SignOutView(CreateView):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return redirect('/users/test') # temp, redirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class ChangeUserView(CreateView):
     form_class = PasswordChangeForm
-
-    def get(self, request, *args, **kwargs):
-        form = PasswordChangeForm(request.user)
-        return render(request, 'users/change.html', {'title':'Смена пароля - Wander', 'form': form})
 
     def post(self, request, *args, **kwargs):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            return redirect('/users/test') # temp, redirect('/')
-        return render(request, 'users/change.html', {'title':'Смена пароля - Wander', 'form': form})
-
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 class TestView(CreateView):
     def get(self, request, *args, **kwargs):
         return render(request, 'users/test.html', {'title':'Тест авторизации - Wander'})
-
