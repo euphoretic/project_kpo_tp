@@ -78,3 +78,11 @@ def rating(request):
 
 def settings(request):
     return render(request, 'wander/settings.html')
+
+
+def home(request):
+    all_poster = PosterEvent.newmanager.all()
+    all_restaurant = Restaurant.newmanager.all()
+    all_attractions = Attraction.newmanager.all()
+    return render(request, 'wander/index.html',
+                  {'poster': all_poster, 'restaurant': all_restaurant, 'attraction': all_attractions})

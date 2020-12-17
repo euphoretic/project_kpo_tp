@@ -2,7 +2,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="main.css">
+	{% load static %}<link rel="stylesheet" href={% static 'wander/main.css' %}>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 	<title>Wander</title>
@@ -11,22 +11,18 @@
 	<header>
 		<div class="main_panel">
 			<div class="logo">
-				<img class="logo_img" src="img\logo.svg" alt="logo">
+				<img class="logo_img" src={% static "wander/img\logo.svg" %} alt="logo">
 				<span class="logo_text">
 					WANDER
 				</span>
 			</div>
 			<ul class="mini_menu">
 					<li class = "publish">
-						<a href="#"><div><img src="img/add.png" alt="">
+						<a href="#"><div><img src={% static "wander/img/add.png" %} alt="">
 						<p>Опубликовать</p></div></a>
 					</li>
-					<li class = "notifications">
-						<a href="#"><div><img src="img/bell.png" alt="">
-						<p>Уведомления</p></div></a>
-					</li>
 					<li class ="favorites">
-						<a href="#"><div><img src="img/love.png" alt="">
+						<a href={% url 'users:favourite_list' %}><div><img src={%  static "wander/img/love.png" %} alt="">
 						<p>Избранное</p></div></a>
 					</li>
 				</ul>
@@ -37,23 +33,23 @@
 	</header>
 	<section class="main_menu">
 		<ul class="menu">
-			<li class="place"> <a href="place.html"><div>Достоприме-чательности
-				<img src="img/place.png" alt="place"></div></a>
-			</li>
-			<li class="poster">	<a href="poster.html"><div>Афиша
-				<img src="img/Poster.png" alt="place"></div></a>
-			</li>
-			<li class="eat"><a href="eat.html"><div>	Рестораны
-				<img src="img/eat.png" alt="place"></div></a>
-			</li>
-			<li class="tickets"><a href="tickets.html"><div>Развлечения
-				<img src="img/tickets.png" alt="place"></div></a>
-			</li>
-			<li class="reiting"><a href="reating.html"><div>Рейтинг
-				<img src="img/reiting.png" alt="place"></div></a>
-			</li>
-			<li class="setting"><button class="settings"><div><p>Настройки</p>
-					<img src="img/settings.png" alt="place"></div></button>
+            <li class="place {% block place_checked %}{% endblock %}"> <a href={% url 'attraction-list'  %}  ><div><p>Достоприме-чательности</p>
+                    <img src={% static 'wander/img/place.png' %} alt="place"></div></a>
+                </li>
+                <li class="poster {% block poster_checked %}{% endblock %}">	<a href={%  url 'poster-list' %}><div><p>Афиша</p>
+                    <img src={% static 'wander/img/poster.png' %} alt="poster"></div></a>
+                </li>
+                <li class="eat {% block eat_checked %}{% endblock %}"><a href={% url 'restaurant-list' %}><div><p>Рестораны</p>
+                    <img src={% static 'wander/img/restaurant.png' %} alt="eat"></div></a>
+                </li>
+                <li class="tickets {% block tickets_checked %}{% endblock %}"><a href={% url 'poster-list' %}><div><p>Развлечения</p>
+                    <img src={% static 'wander/img/tickets.png' %} alt="tickets"></div></a>
+                </li>
+                <li class="rating {% block rating_checked %}{% endblock %}"><a href={% url 'rating' %}><div><p>Рейтинг</p>
+                    <img src={% static 'wander/img/rating.png' %} alt="rating"></div></a>
+                </li>
+                <li class="setting"><button class="settings"><div><p>Настройки</p>
+					<img src={% static 'wander/img/settings.png' %} alt="settings"></div></button>
 					<div class="dropdown-content">
 					    <a href="#">Сменить город</a>
 					    <a href="#">Информация об <br> учетной записи</a>
@@ -66,12 +62,12 @@
 		<div class="main_pict">
 			<p>Найдите все лучшее в мире</p>
 			<div class="search">
-				<input class="schbuttom" type="submit" style="background-image: url(img/search.png);" value="">
+				<input class="schbuttom" type="submit" style="background-image: {% static 'wander/img/search.png' %};" value="">
 				<input class="field" type="text" placeholder="Куда едем?">
 			</div>
 		</div>
 		<div class="pict">
-				<img class="main_img" src="img/main_img.png" alt="main_pict">
+				<img class="main_img" src={% static "wander/img/main_img.png" %} alt="main_pict">
 			</div>
 	</section>
 	<section class="third">

@@ -32,7 +32,7 @@ header{
 }
 .mini_menu{
 	position: absolute;
-	left:513px;
+	left:720px;
 	display: inline-flex;
 }
 .mini_menu>li:hover{

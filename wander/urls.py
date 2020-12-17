@@ -1,10 +1,10 @@
 from django.urls import path
 
 from wander.views import PosterEventListView, PosterEventDetailView, RestaurantListView, RestaurantDetailView,\
-    AttractionListView, AttractionDetailView, rating, settings
+    AttractionListView, AttractionDetailView, rating, settings, home
 
 urlpatterns = [
-    path('', PosterEventListView.as_view(), name='poster-list'),
+    path('', home, name='homepage'),
     path('poster/', PosterEventListView.as_view(), name='poster-list'),
     path('poster/<int:pk>/', PosterEventDetailView.as_view(), name='poster-detail'),
     # path('poster/<slug:poster>/', poster_single, name='poster-detail'),
