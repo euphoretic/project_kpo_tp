@@ -9,7 +9,18 @@
                 <div class="block">
                     <div class="bl_img" > <!--style="background-image:-->
                         <button>
-                            <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"> </div>
+                            {% if request.user.is_authenticated %}
+                            {% if restaurants.pk in restaurants.favourites  %}
+                            <a href="{% url 'users:favourite_list' %}" class="">
+                                <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a>
+                            {% else %}
+                            <a href="{% url 'users:favourite_add_restaurant' restaurants.id %}" class="">
+                                <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
+                            {% endif %}
+                            {% else %}
+                            <a href="{% url 'users:signup' %}" class="">
+                                <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
+                            {% endif %}
                         </button>
                     </div>
                     <div class="bl_text">
@@ -19,7 +30,7 @@
                 </div>
             </a>
         {% empty %}
-            <li>Пока ещё нет ресторанов.</li>
+            <p>Пока ещё нет ресторанов.</p>
         {% endfor %}
     </section>
 {% endblock %}

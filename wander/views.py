@@ -24,6 +24,17 @@ class PosterEventDetailView(generic.DetailView):
         context['now'] = timezone.now()
         return context
 
+# def poster_single(request, poster):
+#
+#     poster = get_object_or_404(PosterEvent, slug=poster, status='opened')
+#
+#     fav = bool
+#
+#     if poster.favourites.filter(id=request.user.id).exists():
+#         fav = True
+#
+#     return render(request, 'posterevent_detail.html', {'object': poster,  'fav': fav})
+
 
 class RestaurantListView(generic.ListView):
     model = Restaurant

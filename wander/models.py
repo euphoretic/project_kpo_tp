@@ -1,7 +1,7 @@
 import datetime
-
 from django.utils import timezone
 from django.db import models
+from users.models import User
 from django.utils.translation import gettext_lazy as _
 
 
@@ -38,8 +38,21 @@ class Place(models.Model):
 
 
 class Attraction(models.Model):
+    class NewManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset() .filter(status='opened')
+
+    options = (
+        ('opened', 'Opened'),
+        ('closed', 'Closed'),
+    )
     place = models.ForeignKey(Place, on_delete=models.CASCADE, )
     history = models.CharField(max_length=255)
+    status = models.CharField(max_length=10, choices=options, default='opened')
+    favourites = models.ManyToManyField(
+        User, related_name='favourite_attraction', default=None, blank=True)
+    objects = models.Manager()  # default manager
+    newmanager = NewManager()  # custom manager
 
     def save(self, **kwargs):
         if not self.pk:
@@ -53,9 +66,22 @@ class Attraction(models.Model):
 
 
 class Restaurant(models.Model):
+    class NewManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status='opened')
+
+    options = (
+        ('opened', 'Opened'),
+        ('closed', 'Closed'),
+    )
     place = models.ForeignKey(Place, on_delete=models.CASCADE,)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
+    status = models.CharField(max_length=10, choices=options, default='opened')
+    favourites = models.ManyToManyField(
+        User, related_name='favourite_restaurant', default=None, blank=True)
+    objects = models.Manager()  # default manager
+    newmanager = NewManager()  # custom manager
 
     def save(self, **kwargs):
         if not self.pk:
@@ -69,14 +95,29 @@ class Restaurant(models.Model):
 
 
 class PosterEvent(models.Model):
+
     class Meta:
         db_table = "poster_event"
+
+    class NewManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(status='opened')
+
+    options = (
+        ('opened', 'Opened'),
+        ('closed', 'Closed'),
+    )
 
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
     date_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     date_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
     name = models.CharField(max_length=30, default='add_name_event')
     ended = models.BooleanField(default=False)
+    status = models.CharField(max_length=10, choices=options, default='opened')
+    favourites = models.ManyToManyField(
+        User, related_name='favourite_poster_event', default=None, blank=True)
+    objects = models.Manager()  # default manager
+    newmanager = NewManager()  # custom manager
 
     def mark_ended(self, commit=False):
         if commit or (self.was_ended()):

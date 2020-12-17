@@ -2,13 +2,56 @@ import json
 
 from django.views import View, generic
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
-
 from django.contrib.auth import login, authenticate, logout, get_user, update_session_auth_hash
 from django.views.generic import CreateView
-
 from .forms import SignUpForm
+from wander.models import Restaurant, PosterEvent, Attraction
+
+
+@ login_required
+def favourite_list(request):
+    new_poster_event = PosterEvent.newmanager.filter(favourites=request.user)
+    new_restaurant = Restaurant.newmanager.filter(favourites=request.user)
+    new_attraction = Attraction.newmanager.filter(favourites=request.user)
+    return render(request,
+                  'users/favourites.html',
+                  {'new_poster_event': new_poster_event,
+                   'new_restaurant': new_restaurant,
+                   'new_attraction': new_attraction})
+
+
+@ login_required
+def favourite_add_poster(request, id):
+    post = get_object_or_404(PosterEvent, id=id)
+    if post.favourites.filter(id=request.user.id).exists():
+        post.favourites.remove(request.user)
+    else:
+        post.favourites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@ login_required
+def favourite_add_attraction(request, id):
+    post = get_object_or_404(Attraction, id=id)
+    if post.favourites.filter(id=request.user.id).exists():
+        post.favourites.remove(request.user)
+    else:
+        post.favourites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@ login_required
+def favourite_add_restaurant(request, id):
+    post = get_object_or_404(Restaurant, id=id)
+    if post.favourites.filter(id=request.user.id).exists():
+        post.favourites.remove(request.user)
+    else:
+        post.favourites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 class SignUpUser(CreateView):
     form_class = UserCreationForm
@@ -44,10 +87,12 @@ class SignInUser(CreateView):
             return redirect('/users/test') # temp, redirect('/')
         return render(request, 'users/signin.html', {'title': 'Вход - Wander','form': form})
 
+
 class SignOutView(CreateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('/users/test') # temp, redirect('/')
+
 
 class ChangeUserView(CreateView):
     form_class = PasswordChangeForm
@@ -64,23 +109,8 @@ class ChangeUserView(CreateView):
             return redirect('/users/test') # temp, redirect('/')
         return render(request, 'users/change.html', {'title':'Смена пароля - Wander', 'form': form})
 
+
 class TestView(CreateView):
     def get(self, request, *args, **kwargs):
         return render(request, 'users/test.html', {'title':'Тест авторизации - Wander'})
 
-class FavoritesView(View):
-    model = None
-
-    def post(self, request, pk):
-        user = get_user(request)
-        favorites, created = self.model.objects.get_or_create(user=user, obj_id=pk)
-        if not created:
-            favorites.delete()
-
-        return HttpResponse(
-           json.dump({
-               "result": created,
-               "count": self.model.objects.filter(obj_id=pk).count()
-           }),
-           content_type="application/json"
-        )

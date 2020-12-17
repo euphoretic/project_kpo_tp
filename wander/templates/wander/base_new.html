@@ -3,7 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		{% load static %}<link rel="stylesheet" href='{% static 'wander/wander_menu.css'%}'>
+		{% load static %}
+        <link rel="stylesheet" href={% static 'wander/place_.css' %}>
+
+
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 		<title>{% block title %}{% endblock %}</title>
@@ -23,12 +26,8 @@
 							<a href="#"><div>{% load static %}<img src='{% static 'wander/img/add.png' %}' alt="">
 							<p>Опубликовать</p></div></a>
 						</li>
-						<li class = "notifications">
-							<a href="#"><div><img src='{% static 'wander/img/bell.png' %}' alt="">
-							<p>Уведомления</p></div></a>
-						</li>
 						<li class ="favorites">
-							<a href="#"><div><img src='{% static 'wander/img/love.png' %}' alt="">
+							<a href={% url 'users:favourite_list' %}><div><img src='{% static 'wander/img/love.png' %}' alt="">
 							<p>Избранное</p></div></a>
 						</li>
 					</ul>
@@ -55,9 +54,14 @@
                 <li class="rating {% block rating_checked %}{% endblock %}"><a href={% url 'rating' %}><div><p>Рейтинг</p>
                     <img src={% static 'wander/img/rating.png' %} alt="rating"></div></a>
                 </li>
-                <li class="settings {% block settings_checked %}{% endblock %}"><a href={% url 'settings' %}><div><p>Настройки</p>
-                    <img src={% static 'wander/img/settings.png' %} alt="settings"></div></a>
-                </li>
+                <li class="setting"><button class="settings"><div><p>Настройки</p>
+					<img src={% static 'wander/img/settings.png' %} alt="settings"></div></button>
+					<div class="dropdown-content">
+					    <a href="#">Сменить город</a>
+					    <a href="#">Информация об <br> учетной записи</a>
+					    <a href="#">Выйти</a>
+					</div>
+				</li>
             </ul>
         </section>
 		{% block context %}{% endblock %}
