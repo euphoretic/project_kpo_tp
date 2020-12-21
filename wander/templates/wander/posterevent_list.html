@@ -5,12 +5,12 @@
 {% block context %}
     <section class="blocks-row-city">
         {% for poster in object_list %}
-            <a href="#">
+            <a href="{% url 'poster-detail' poster.pk %}">
                 <div class="block">
-                    <div class="bl_img" > <!--style="background-image:-->
+                    <div class="bl_img"> <!--style="background-image:-->
                         <button>
                             {% if request.user.is_authenticated %}
-                            {% if favpost %}
+                            {% if poster.favourites.filter.exists %}
                             <div><a href="{% url 'users:favourite_list' %}" class="">
                                 <div class="bl_favorites"><img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
                             {% else %}
@@ -18,7 +18,7 @@
                                 <div class="bl_favorites"><img src={% static 'wander/img/love.png' %} alt="love"></div></a></div>
                             {% endif %}
                             {% else %}
-                            <div><a href="{% url '/#popup_reg' %}" class="">
+                            <div><a href="#popup" class="">
                                 <div class="bl_favorites"><img src={% static 'wander/img/love.png' %} alt="love"></div></a></div>
                             {% endif %}
                         </button>

@@ -25,9 +25,17 @@
 							<a href="#"><div>{% load static %}<img src='{% static 'wander/img/add.png' %}' alt="">
 							<p>Опубликовать</p></div></a>
 						</li>
-						<li class ="favorites">
-							<a href={% url 'users:favourite_list' %}><div><img src='{% static 'wander/img/love.png' %}' alt="">
-							<p>Избранное</p></div></a>
+                        {% if user.is_authenticated %}
+                        <li class ="favorites">
+                            <a href={% url 'users:favourite_list' %}><div><img src={% static "wander/img/love.png" %} alt="">
+                                <p>Избранное</p></div></a>
+					    </li>
+                        {% else %}
+                        <li class ="favorites">
+                            <a href="#popup"><div><img src={% static "wander/img/love.png" %} alt="">
+						        <p>Избранное</p></div></a>
+					    </li>
+                            {% endif %}
 						</li>
 					</ul>
 					{% if user.is_authenticated %}

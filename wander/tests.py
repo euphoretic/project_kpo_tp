@@ -25,14 +25,3 @@ class PosterEventModelTests(TestCase):
         # future_poster_event.is_date_correct()
         self.assertIs(future_poster_event.is_date_correct(), True)
 
-
-
-
-
-
-
-
-
-
-
-# class PosterEventListViewTest(TestCase):

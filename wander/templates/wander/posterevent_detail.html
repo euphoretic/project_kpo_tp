@@ -1,16 +1,23 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Мероприятие</title>
-</head>
-<body>
-    <h1>{{ object.name }}</h1>
-    <p>{{ object.content }}</p>
-    <p>Премьера: {{ object.date_start|date }}</p>
-    <p>Последний сеанс: {{ object.date_end|date }}</p>
-    <p>Сегодня: {{ now|date }}</p>
-    <p>{{ object.place }}</p>
+{% extends 'wander/base_new.html' %}
+{% load static %}
+{% block title %}{{ object.name }}{% endblock %}
+{% block poster_checked %}checked{% endblock %}
+{% block context %}
+    <section class="block_event">
+        <div class="event">
+            <div class="content_event">
+                <div class="text_event">
+                    <h1>{{ object.name }}</h1>
+                    <p class="address_event">{{ object.place }}</p>
+                    <p class="text">{{ object.content }}</p>
+                    <p class="text">Премьера: {{ object.date_start|date }}</p>
+                    <p class="text">Последний сеанс: {{ object.date_end|date }}</p>
+                </div>
+                <div class="img_event">
+                    <img src={% static "wander/img/krem2.jpg" %} alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
 
-</body>
-</html>
