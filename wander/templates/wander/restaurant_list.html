@@ -4,17 +4,17 @@
 {% block eat_checked %}checked{% endblock %}
 {% block context %}
     <section class="blocks-row-city">
-        {% for restaurants in object_list %}
+        {% for restaurant in object_list %}
             <a href="#">
                 <div class="block">
-                    <div class="bl_img" style="background-image: url('{{ restaurants.image.url }}')"> <!--style="background-image:-->
+                    <div class="bl_img" style="background-image: url('{{ restaurants.image.url }}')">
                         <button>
                             {% if request.user.is_authenticated %}
-                            {% if restaurants in new_restaurant %}
-                            <a href="{% url 'users:favourite_list' %}" class="">
+                            {% if restaurant in restaurant_list.favorites %}
+                            <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a>
                             {% else %}
-                            <a href="{% url 'users:favourite_add_restaurant' restaurants.id %}" class="">
+                            <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
                             {% endif %}
                             {% else %}
@@ -24,8 +24,8 @@
                         </button>
                     </div>
                     <div class="bl_text">
-                        <div class="name">{{ restaurants.name }}</div>
-                        <div class="address">{{ restaurants.place }}</div>
+                        <div class="name">{{ restaurant.name }}</div>
+                        <div class="address">{{ restaurant.place }}</div>
                     </div>
                 </div>
             </a>

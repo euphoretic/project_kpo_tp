@@ -6,12 +6,12 @@
     <section class="blocks-row-city">
         {% for attraction in object_list %}
             <a href="#">
-                <div class="block"">
-                    <div class="bl_img" style="background-image: url('{{ attraction.image.url }}')"> <!--style="background-image:-->
+                <div class="block">
+                    <div class="bl_img" style="background-image: url('{{ attraction.image.url }}')">
                         <button>
                             {% if request.user.is_authenticated %}
                                 {% if favattr %}
-                            <div><a href="{% url 'users:favourite_list' %}" class="">
+                            <div><a href="{% url 'users:favourite_add_attraction' attraction.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
                             {% else %}
                             <div><a href="{% url 'users:favourite_add_attraction' attraction.id %}" class="">
