@@ -1,10 +1,9 @@
 from django.urls import path
-
 from django.conf import settings as _settings
 from django.conf.urls.static import static
-
 from wander.views import PosterEventListView, PosterEventDetailView, RestaurantListView, RestaurantDetailView,\
-    AttractionListView, AttractionDetailView, rating, settings, home
+    AttractionListView, AttractionDetailView, rating, settings, home\
+
 
 urlpatterns = [
     path('', home, name='homepage'),
@@ -17,4 +16,4 @@ urlpatterns = [
     path('restaurant/<int:pk>/', RestaurantDetailView.as_view(), name='restaurant-detail'),
     path('rating/', rating, name='rating'),
     path('settings/', settings, name='settings'),
-]  + static(_settings.MEDIA_URL, document_root=_settings.MEDIA_ROOT)
+] + static(_settings.MEDIA_URL, document_root=_settings.MEDIA_ROOT)

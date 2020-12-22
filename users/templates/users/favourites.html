@@ -8,7 +8,7 @@
                 <div class="block">
                     <div class="bl_img" style="background-image: url('{{ poster.image.url }}')">
                         <button>
-                            {% if request.user.is_authenticated %}
+                            {% if user.is_authenticated %}
                             {% if poster.favourites.filter.exists %}
                             <div><a href="{% url 'users:favourite_add_poster' poster.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
@@ -39,7 +39,7 @@
                 <div class="block">
                     <div class="bl_img" style="background-image: url('{{ attraction.image.url }}')">
                         <button>
-                            {% if request.user.is_authenticated %}
+                            {% if user.is_authenticated %}
                                 {% if attraction %}
                             <div><a href="{% url 'users:favourite_add_attraction' attraction.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
@@ -69,7 +69,7 @@
                 <div class="block">
                     <div class="bl_img" style="background-image: url('{{ restaurants.image.url }}')">
                         <button>
-                            {% if request.user.is_authenticated %}
+                            {% if user.is_authenticated %}
                             {% if restaurants %}
                             <div><a href="{% url 'users:favourite_add_restaurant' restaurants.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>

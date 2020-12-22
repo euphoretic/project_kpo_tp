@@ -9,8 +9,8 @@
                 <div class="block">
                     <div class="bl_img" style="background-image: url('{{ restaurants.image.url }}')">
                         <button>
-                            {% if request.user.is_authenticated %}
-                            {% if restaurant in restaurant_list.favorites %}
+                            {% if user.is_authenticated %}
+                            {% if user in restaurant.favourites.filter %}
                             <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a>
                             {% else %}

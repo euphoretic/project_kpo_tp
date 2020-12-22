@@ -9,8 +9,8 @@
                 <div class="block">
                     <div class="bl_img" style="background-image: url('{{ poster.image.url }}')">
                         <button>
-                            {% if request.user.is_authenticated %}
-                            {% if poster.favourites.filter.exists %}
+                            {% if user.is_authenticated %}
+                            {% if user in poster.favourites.filter %}
                             <div><a href="{% url 'users:favourite_add_poster' poster.id %}" class="">
                                 <div class="bl_favorites"><img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
                             {% else %}
