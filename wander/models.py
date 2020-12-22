@@ -4,6 +4,14 @@ from django.db import models
 from users.models import User
 from django.utils.translation import gettext_lazy as _
 
+def image_path_attraction(instance, filename):
+    return 'img/attraction_{0}_{1}'.format(instance.id, filename)
+
+def image_path_restaurant(instance, filename):
+    return 'img/restaurant_{0}_{1}'.format(instance.id, filename)
+
+def image_path_posterevent(instance, filename):
+    return 'img/posterevent_{0}_{1}'.format(instance.id, filename)
 
 class City(models.Model):
     name = models.CharField(max_length=20)
@@ -53,6 +61,7 @@ class Attraction(models.Model):
         User, related_name='favourite_attraction', default=None, blank=True)
     objects = models.Manager()  # default manager
     newmanager = NewManager()  # custom manager
+    image = models.ImageField(upload_to=image_path_attraction, default='img/default.jpg')
 
     def save(self, **kwargs):
         if not self.pk:
@@ -82,6 +91,7 @@ class Restaurant(models.Model):
         User, related_name='favourite_restaurant', default=None, blank=True)
     objects = models.Manager()  # default manager
     newmanager = NewManager()  # custom manager
+    image = models.ImageField(upload_to=image_path_restaurant, default='img/default.jpg')
 
     def save(self, **kwargs):
         if not self.pk:
@@ -118,6 +128,7 @@ class PosterEvent(models.Model):
         User, related_name='favourite_poster_event', default=None, blank=True)
     objects = models.Manager()  # default manager
     newmanager = NewManager()  # custom manager
+    image = models.ImageField(upload_to=image_path_posterevent, default='img/default.jpg')
 
     def mark_ended(self, commit=False):
         if commit or (self.was_ended()):

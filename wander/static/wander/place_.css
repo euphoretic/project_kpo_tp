@@ -249,6 +249,8 @@ section{
 .bl_img{
 	height: 143px;
 	width: 242px;
+	border-radius: 15px;
+	background-size: cover;
 
 	background-image:url(img/krem.png);
 }

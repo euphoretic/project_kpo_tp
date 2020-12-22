@@ -7,7 +7,7 @@
         {% for poster in object_list %}
             <a href="{% url 'poster-detail' poster.pk %}">
                 <div class="block">
-                    <div class="bl_img"> <!--style="background-image:-->
+                    <div class="bl_img" style="background-image: url('{{ poster.image.url }}')"> <!--style="background-image:-->
                         <button>
                             {% if request.user.is_authenticated %}
                             {% if poster.favourites.filter.exists %}
@@ -35,4 +35,3 @@
         {% endfor %}
     </section>
 {% endblock %}
-

@@ -9,10 +9,9 @@
                 <div class="text_event"><h1>{{ object.name }}</h1>
                     <p class="address_event"> {{ object.place.full_address }}</p>
                     <p class="text">{{ object.description }}</p>
-
                 </div>
                 <div class="img_event">
-                    <img src={% static "wander/img/krem2.jpg" %} alt="">
+                    <img src="{{ object.image.url }}"/>
                 </div>
             </div>
         </div>

@@ -7,11 +7,10 @@
         {% for restaurants in object_list %}
             <a href="#">
                 <div class="block">
-                    <div class="bl_img" > <!--style="background-image:-->
+                    <div class="bl_img" style="background-image: url('{{ restaurants.image.url }}')"> <!--style="background-image:-->
                         <button>
                             {% if request.user.is_authenticated %}
-                            {% if restaurants.favourites.filter.exists %}
-
+                            {% if restaurants in new_restaurant %}
                             <a href="{% url 'users:favourite_list' %}" class="">
                                 <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a>
                             {% else %}
@@ -35,6 +34,3 @@
         {% endfor %}
     </section>
 {% endblock %}
-
-
-
