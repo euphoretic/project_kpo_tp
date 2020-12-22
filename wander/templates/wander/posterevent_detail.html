@@ -14,10 +14,9 @@
                     <p class="text">Последний сеанс: {{ object.date_end|date }}</p>
                 </div>
                 <div class="img_event">
-                    <img src={% static "wander/img/krem2.jpg" %} alt="">
+                    <img src="{{ object.image.url }}"/>
                 </div>
             </div>
         </div>
     </section>
 {% endblock %}
-

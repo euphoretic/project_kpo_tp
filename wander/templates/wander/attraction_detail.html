@@ -12,13 +12,12 @@
                     <p class="text">История</p>
                     <p class="text">{{ object.history }}</p>
                     <p class="text">{{ object.content }}</p>
-
                 </div>
                 <div class="img_event">
-                    <img src={% static "wander/img/krem2.jpg" %} alt="">
+                    <img src="{{ object.image.url }}"/>
                 </div>
+
             </div>
         </div>
     </section>
 {% endblock %}
-
