@@ -218,7 +218,11 @@ section{
 	flex-flow: wrap;
 	display: flex;
 }
-.blocks-row-city>a{
+.blocks-row-city>div:hover{
+	opacity: 0,8;
+	transform: translateY(-5px);
+}
+.block>a{
 	display: inline-block;
 	text-decoration: none;
 	transition: all 0,2;
@@ -421,6 +425,7 @@ input[type="password"]::-webkit-input-placeholder{
 }
 .block_event{
 	min-height: 384px;
+	margin-top: 50px;
 }
 .event{
 	width: 1280px;
