@@ -5,30 +5,28 @@
 {% block context %}
     <section class="blocks-row-city">
         {% for restaurant in object_list %}
-            <a href="#">
-                <div class="block">
-                    <div class="bl_img" style="background-image: url('{{ restaurants.image.url }}')">
-                        <button>
-                            {% if user.is_authenticated %}
-                            {% if user in restaurant.favourites.filter %}
-                            <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
-                                <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a>
-                            {% else %}
-                            <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
-                                <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
-                            {% endif %}
-                            {% else %}
-                            <a href="{% url 'users:signup' %}" class="">
-                                <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
-                            {% endif %}
-                        </button>
-                    </div>
-                    <div class="bl_text">
-                        <div class="name">{{ restaurant.name }}</div>
-                        <div class="address">{{ restaurant.place }}</div>
-                    </div>
+            <div class="block" onclick="location.href='{% url 'restaurant-detail' restaurant.pk %}';">
+                <div class="bl_img" style="background-image: url('{{ restaurant.image.url }}')">
+                    <button>
+                        {% if user.is_authenticated %}
+                        {% if user in restaurant.favourites.filter %}
+                        <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
+                            <div class="bl_favorites"> <img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a>
+                        {% else %}
+                        <a href="{% url 'users:favourite_add_restaurant' restaurant.id %}" class="">
+                            <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
+                        {% endif %}
+                        {% else %}
+                        <a href="{% url 'users:signup' %}" class="">
+                            <div class="bl_favorites"> <img src={% static 'wander/img/love.png' %} alt="love"></div></a>
+                        {% endif %}
+                    </button>
                 </div>
-            </a>
+                <div class="bl_text">
+                    <div class="name">{{ restaurant.name }}</div>
+                    <div class="address">{{ restaurant.place }}</div>
+                </div>
+            </div>
         {% empty %}
             <p>Пока ещё нет ресторанов.</p>
         {% endfor %}

@@ -5,31 +5,29 @@
 {% block context %}
     <section class="blocks-row-city">
         {% for poster in object_list %}
-            <a href="{% url 'poster-detail' poster.pk %}">
-                <div class="block">
-                    <div class="bl_img" style="background-image: url('{{ poster.image.url }}')">
-                        <button>
-                            {% if user.is_authenticated %}
-                            {% if user in poster.favourites.filter %}
-                            <div><a href="{% url 'users:favourite_add_poster' poster.id %}" class="">
-                                <div class="bl_favorites"><img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
-                            {% else %}
-                            <div><a href="{% url 'users:favourite_add_poster' poster.id %}" class="">
-                                <div class="bl_favorites"><img src={% static 'wander/img/love.png' %} alt="love"></div></a></div>
-                            {% endif %}
-                            {% else %}
-                            <div><a href="#popup" class="">
-                                <div class="bl_favorites"><img src={% static 'wander/img/love.png' %} alt="love"></div></a></div>
-                            {% endif %}
-                        </button>
-                    </div>
-                    <div class="bl_text">
-                        <div class="name">{{ poster.name }}</div>
-                        <div class="address">{{ poster.place.name }}</div>
-                        <div class="datetime">{{ poster.date_start }}</div>
-                    </div>
+            <div class="block" onclick="location.href='{% url 'poster-detail' poster.pk %}';">
+                <div class="bl_img" style="background-image: url('{{ poster.image.url }}')">
+                    <button>
+                        {% if user.is_authenticated %}
+                        {% if user in poster.favourites.filter %}
+                        <div><a href="{% url 'users:favourite_add_poster' poster.id %}" class="">
+                            <div class="bl_favorites"><img src={% static 'wander/img/no_love.png' %} alt="no_love"></div></a></div>
+                        {% else %}
+                        <div><a href="{% url 'users:favourite_add_poster' poster.id %}" class="">
+                            <div class="bl_favorites"><img src={% static 'wander/img/love.png' %} alt="love"></div></a></div>
+                        {% endif %}
+                        {% else %}
+                        <div><a href="#popup" class="">
+                            <div class="bl_favorites"><img src={% static 'wander/img/love.png' %} alt="love"></div></a></div>
+                        {% endif %}
+                    </button>
                 </div>
-            </a>
+                <div class="bl_text">
+                    <div class="name">{{ poster.name }}</div>
+                    <div class="address">{{ poster.place.name }}</div>
+                    <div class="datetime">{{ poster.date_start }}</div>
+                </div>
+            </div>
         {% empty %}
             <li>Пока ещё нет мероприятий.</li>
         {% endfor %}

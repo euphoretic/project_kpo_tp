@@ -13,6 +13,9 @@ def image_path_restaurant(instance, filename):
 def image_path_posterevent(instance, filename):
     return 'img/posterevent_{0}_{1}'.format(instance.id, filename)
 
+def image_map_path(instance, filename):
+    return 'img/map/map_{0}_{1}'.format(instance.id, filename)
+
 class City(models.Model):
     name = models.CharField(max_length=20)
 
@@ -33,6 +36,7 @@ class Place(models.Model):
     name = models.CharField(max_length=50)
     rating = models.FloatField(max_length=3)
     description = models.CharField(max_length=255)
+    image_map = models.ImageField(upload_to=image_map_path, default='img/map/default.jpg')
 
     def save(self, **kwargs):
         if not self.pk:
