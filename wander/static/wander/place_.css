@@ -245,6 +245,7 @@ section{
   border-radius: 12px;
   overflow: hidden;
 
+	cursor:pointer
 }
 .bl_img{
 	height: 143px;
@@ -253,6 +254,7 @@ section{
 	background-size: cover;
 
 	background-image:url(img/krem.png);
+	cursor:pointer
 }
 .bl_img>button{
 		/*outline: none;*/

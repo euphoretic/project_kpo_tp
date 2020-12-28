@@ -33,4 +33,3 @@ class User(AbstractUser):
         there override selected_city, first_name, last_name, favourites_list  """
         setattr(self, key, value)
         self.save()
-
