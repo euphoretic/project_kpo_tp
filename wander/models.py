@@ -4,17 +4,22 @@ from django.db import models
 from users.models import User
 from django.utils.translation import gettext_lazy as _
 
+
 def image_path_attraction(instance, filename):
     return 'img/attraction_{0}_{1}'.format(instance.id, filename)
+
 
 def image_path_restaurant(instance, filename):
     return 'img/restaurant_{0}_{1}'.format(instance.id, filename)
 
+
 def image_path_posterevent(instance, filename):
     return 'img/posterevent_{0}_{1}'.format(instance.id, filename)
 
+
 def image_map_path(instance, filename):
     return 'img/map/map_{0}_{1}'.format(instance.id, filename)
+
 
 class City(models.Model):
     name = models.CharField(max_length=20)

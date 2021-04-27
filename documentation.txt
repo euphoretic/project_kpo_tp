@@ -5,10 +5,11 @@ this is our project documetation
 app name:
 Wander
 
+
 Developers team:
 Agafonova E.I.
 Karpuhin E.P.
-Orekhpv E.A.
+Orekhov E.A.
 Filippov D.D.
 Yaskov M.S.
 

@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     # custom:
     'wander.apps.WanderConfig',
     'users.apps.UsersConfig',
+    # drf:
+    'rest_framework',
 
 
 ]

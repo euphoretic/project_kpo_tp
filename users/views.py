@@ -13,10 +13,10 @@ def favourite_list(request):
     new_restaurant = Restaurant.newmanager.filter(favourites=request.user)
     new_attraction = Attraction.newmanager.filter(favourites=request.user)
     return render(request,
-                  'users/favourites.html',
-                  {'new_poster_event': new_poster_event,
-                   'new_restaurant': new_restaurant,
-                   'new_attraction': new_attraction})
+        'users/favourites.html',
+        {'new_poster_event': new_poster_event,
+        'new_restaurant': new_restaurant,
+        'new_attraction': new_attraction})
 
 
 @ login_required

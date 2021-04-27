@@ -1,9 +1,22 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings as _settings
 from django.conf.urls.static import static
-from wander.views import PosterEventListView, PosterEventDetailView, RestaurantListView, RestaurantDetailView,\
-    AttractionListView, AttractionDetailView, rating, settings, home\
+from . import views
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register(r'attraction', views.AttractionViewSet, basename='Attraction')
+router.register(r'poster', views.PosterEvent, basename='PosterEvent')
+router.register(r'restaurant', views.RestaurantSerializer, basename='Restaurant')
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+
+'''
+# from wander.views import PosterEventListView, PosterEventDetailView, RestaurantListView, RestaurantDetailView,\
+#    AttractionListView, AttractionDetailView, rating, settings, home\
 
 urlpatterns = [
     path('', home, name='homepage'),
@@ -16,3 +29,4 @@ urlpatterns = [
     path('rating/', rating, name='rating'),
     path('settings/', settings, name='settings'),
 ] + static(_settings.MEDIA_URL, document_root=_settings.MEDIA_ROOT)
+'''
