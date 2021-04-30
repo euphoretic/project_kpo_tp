@@ -24,9 +24,7 @@ $RECYCLE.BIN/
 #### python ####
 # Byte-compiled / optimized / DLL files
 __pycache__/
-wander/__pycache__/
-user/__pycache__/
-kpo_tp/__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
