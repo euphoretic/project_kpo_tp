@@ -1,6 +1,3 @@
-from django.db import models
-
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 
 
@@ -33,3 +30,5 @@ class User(AbstractUser):
         there override selected_city, first_name, last_name, favourites_list  """
         setattr(self, key, value)
         self.save()
+
+

@@ -2,11 +2,23 @@ from . import views
 
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
+from rest_framework import routers
+
+from .views import UserViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
 
 app_name = 'users'
 urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+
+'''
+urlpatterns = [
     path('signup/', views.SignUpUser.as_view(), name='signup'),
-    path('signin/',views.SignInUser.as_view(), name ="signin"),
+    path('signin/',views.SignInUser.as_view(), name="signin"),
     path('signout/', views.SignOutView.as_view(), name='signout'),
     path('change/', views.ChangeUserView.as_view(), name='change'),
     path('test/', views.TestView.as_view(template_name='users/test.html'), name='test'),
@@ -16,3 +28,4 @@ urlpatterns = [
     path('profile/favourites/', views.favourite_list, name='favourite_list'),
 
 ]
+'''

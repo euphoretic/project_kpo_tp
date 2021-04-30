@@ -5,21 +5,30 @@ from django.contrib.auth import login, authenticate, logout, get_user, update_se
 from django.views.generic import CreateView
 from .forms import SignUpForm
 from wander.models import Restaurant, PosterEvent, Attraction
+from rest_framework import viewsets
+from .models import User
+
+from .serializers import UserSerializer
 
 
-@ login_required
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+@login_required
 def favourite_list(request):
     new_poster_event = PosterEvent.newmanager.filter(favourites=request.user)
     new_restaurant = Restaurant.newmanager.filter(favourites=request.user)
     new_attraction = Attraction.newmanager.filter(favourites=request.user)
-    return render(request,
-        'users/favourites.html',
-        {'new_poster_event': new_poster_event,
+    return render(request, 'users/favourites.html', {
+        'new_poster_event': new_poster_event,
         'new_restaurant': new_restaurant,
-        'new_attraction': new_attraction})
+        'new_attraction': new_attraction
+    })
 
 
-@ login_required
+@login_required
 def favourite_add_poster(request, id):
     post = get_object_or_404(PosterEvent, id=id)
     if post.favourites.filter(id=request.user.id).exists():
@@ -29,7 +38,7 @@ def favourite_add_poster(request, id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-@ login_required
+@login_required
 def favourite_add_attraction(request, id):
     post = get_object_or_404(Attraction, id=id)
     if post.favourites.filter(id=request.user.id).exists():
@@ -39,7 +48,7 @@ def favourite_add_attraction(request, id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-@ login_required
+@login_required
 def favourite_add_restaurant(request, id):
     post = get_object_or_404(Restaurant, id=id)
     if post.favourites.filter(id=request.user.id).exists():
@@ -105,4 +114,4 @@ class ChangeUserView(CreateView):
 
 class TestView(CreateView):
     def get(self, request, *args, **kwargs):
-        return render(request, 'users/test.html', {'title':'Тест авторизации - Wander'})
+        return render(request, 'users/test.html', {'title': 'Тест авторизации - Wander'})
