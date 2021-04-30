@@ -4,7 +4,18 @@ from django.views import generic
 from rest_framework import viewsets
 
 from .models import Attraction, Place, PosterEvent, Restaurant, City
-from .serializers import AttractionSerializer, RestaurantSerializer, PosterEventSerializer
+from .serializers import AttractionSerializer, RestaurantSerializer, \
+    PosterEventSerializer, CitySerializer, PlaceSerializer
+
+
+class CityViewSet(viewsets.ModelViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+
+
+class PlaceViewSet(viewsets.ModelViewSet):
+    queryset = Place.objects.all()
+    serializer_class = PlaceSerializer
 
 
 class AttractionViewSet(viewsets.ModelViewSet):
@@ -18,7 +29,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
 
 
 class PosterEventViewSet(viewsets.ModelViewSet):
-    queryset = PosterEvent.objects.all().order_by('name')
+    queryset = PosterEvent.objects.all()
     serializer_class = PosterEventSerializer
 
 

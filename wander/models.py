@@ -63,7 +63,7 @@ class Attraction(models.Model):
         ('opened', 'Opened'),
         ('closed', 'Closed'),
     )
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, )
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='attraction_place')
     history = models.CharField(max_length=255)
     status = models.CharField(max_length=10, choices=options, default='opened')
     favourites = models.ManyToManyField(
@@ -92,7 +92,7 @@ class Restaurant(models.Model):
         ('opened', 'Opened'),
         ('closed', 'Closed'),
     )
-    place = models.ForeignKey(Place, on_delete=models.CASCADE,)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='restaurant_place')
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
     status = models.CharField(max_length=10, choices=options, default='opened')
@@ -127,7 +127,7 @@ class PosterEvent(models.Model):
         ('closed', 'Closed'),
     )
 
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='poster_event_place')
     date_start = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     date_end = models.DateField(auto_now=False, auto_now_add=False, default=None, null=True)
     name = models.CharField(max_length=30, default='add_name_event')

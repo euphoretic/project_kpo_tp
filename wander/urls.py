@@ -5,9 +5,11 @@ from . import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'city', views.CityViewSet, basename='City')
+router.register(r'place', views.PlaceViewSet, basename='Place')
 router.register(r'attraction', views.AttractionViewSet, basename='Attraction')
-router.register(r'poster', views.PosterEvent, basename='PosterEvent')
-router.register(r'restaurant', views.RestaurantSerializer, basename='Restaurant')
+router.register(r'poster', views.PosterEventViewSet, basename='PosterEvent')
+router.register(r'restaurant', views.RestaurantViewSet, basename='Restaurant')
 
 urlpatterns = [
     path('', include(router.urls)),
